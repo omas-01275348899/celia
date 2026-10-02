@@ -10,6 +10,28 @@ const grid = document.getElementById("productGrid"),
   cartPanel = document.getElementById("cartPanel"),
   overlay = document.getElementById("overlay"),
   money = (n) => `${n.toLocaleString("ar-EG")} ج.م`;
+const mobileMenu = document.querySelector(".mobile-menu"),
+  mainNav = document.getElementById("mainNav");
+
+function closeMobileMenu() {
+  mainNav.classList.remove("open");
+  mobileMenu.setAttribute("aria-expanded", "false");
+}
+
+mobileMenu.addEventListener("click", () => {
+  const isOpen = mainNav.classList.toggle("open");
+  mobileMenu.setAttribute("aria-expanded", String(isOpen));
+});
+
+mainNav.querySelectorAll("a").forEach((link) =>
+  link.addEventListener("click", closeMobileMenu),
+);
+
+document.addEventListener("click", (event) => {
+  if (!mainNav.contains(event.target) && !mobileMenu.contains(event.target)) {
+    closeMobileMenu();
+  }
+});
 function renderProducts() {
   let all = products.filter(
       (p) => activeFilter === "الكل" || p.category === activeFilter,

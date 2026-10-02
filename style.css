@@ -53,7 +53,7 @@ body {
   text-decoration: none;
   color: var(--ink);
   font-size: 16px;;
-}
+  }
 
 #brandLogo {
     width: 100px;
@@ -686,6 +686,38 @@ footer p {
   }
   .main-nav {
     display: none;
+  }
+  .main-nav.open {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 0;
+    left: 0;
+    z-index: 20;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px 5%;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 10px 20px #21171318;
+  }
+  .main-nav.open a {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .main-nav.open a:last-child {
+    border-bottom: 0;
+  }
+  #brandLogo {
+    width: 70px;
+    height: 70px;
+  }
+  .header-actions {
+    margin: 0;
+  }
+  .bag {
+    font-size: 22px;
   }
   .mobile-menu {
     display: block;
