@@ -774,6 +774,7 @@ footer p {
   }
   .hero-visual {
     min-height: 400px;
+    display: none;
   }
   .hero-photo {
     height: 85%;
