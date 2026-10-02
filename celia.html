@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوميير | عطر الأناقة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="announcement">
+      شحن مجاني للطلبات فوق 800 ج.م <span>✦</span> هدية صغيرة مع كل طلب
+    </div>
+    <header class="header">
+      <button class="mobile-menu">☰</button>
+      <nav class="main-nav">
+        <a href="#home" class="active">الرئيسية</a
+        ><a href="#products">تسوّقي الآن</a><a href="#about">قصتنا</a>
+      </nav>
+      <a href="#home" class="brand"
+        ><img id="brandLogo" src="Black Red Minimalist Illustrated Women Fashion Accessory Boutique Logo.png" alt=""></a
+      >
+      <div class="header-actions">
+        <button class="icon-btn" id="searchBtn">⌕</button
+        ><button class="icon-btn bag" id="cartBtn">
+          ♧<b id="cartCount">0</b>
+        </button>
+      </div>
+    </header>
+    <main id="home">
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">اللمسة التي تشبهك</p>
+          <h1>كل ما تحتاجينه<br /><em>لتتألقي.</em></h1>
+          <p class="hero-text">
+            اختيار راقٍ من العطور، المكياج، والإكسسوارات المصممة لتمنحك حضوراً
+            لا يُنسى.
+          </p>
+          <a class="primary-btn" href="#products"
+            >اكتشفي المجموعة <span>←</span></a
+          >
+        </div>
+        <div class="hero-visual">
+          <div class="sun-disc"></div>
+          <div class="hero-photo"></div>
+          <div class="floating-note">
+            <span>01</span><b>مختارات<br />موسمية</b>
+          </div>
+          <p class="vertical-word">ELEGANCE</p>
+        </div>
+      </section>
+      <section class="categories">
+        <a href="#products" data-category="عطور" class="category-card perfume"
+          ><span class="cat-number">01</span>
+          <div>
+            <h3>العطور</h3>
+            <p>رائحة تترك أثراً</p>
+          </div>
+          <span class="arrow">←</span></a
+        ><a href="#products" data-category="مكياج" class="category-card makeup"
+          ><span class="cat-number">02</span>
+          <div>
+            <h3>المكياج</h3>
+            <p>لونك، بطريقتك</p>
+          </div>
+          <span class="arrow">←</span></a
+        ><a
+          href="#products"
+          data-category="إكسسوارات"
+          class="category-card accessory"
+          ><span class="cat-number">03</span>
+          <div>
+            <h3>الإكسسوارات</h3>
+            <p>تفاصيل تصنع الفرق</p>
+          </div>
+          <span class="arrow">←</span></a
+        >
+      </section>
+      <section class="products-section" id="products">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">اختياراتنا لكِ</p>
+            <h2>منتجتنا المميزة</h2>
+          </div>
+          <div class="filters">
+            <button class="filter active" data-filter="الكل">الكل</button
+            ><button class="filter" data-filter="عطور">عطور</button
+            ><button class="filter" data-filter="مكياج">مكياج</button
+            ><button class="filter" data-filter="إكسسوارات">إكسسوارات</button>
+          </div>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+        <button class="outline-btn" id="showMore">
+          عرض المزيد <span>↓</span>
+        </button>
+      </section>
+      <section class="story" id="about">
+        <div class="story-image">
+          <div class="story-photo"></div>
+          <span>BE YOUR OWN<br />kind of beautiful</span>
+        </div>
+        <div class="story-copy">
+          <p class="eyebrow">لأنك تستحقين الأجمل</p>
+          <h2>الجمال ليس قاعدة،<br />إنه <em>إحساس.</em></h2>
+          <p>
+            في لوميير نؤمن أن كل تفصيلة صغيرة قادرة على أن تحكي عنك. ننتقي
+            منتجاتنا بحب لنرافق لحظاتك الجميلة.
+          </p>
+          <a href="#products" class="text-link"
+            >تعرّفي علينا أكثر <span>←</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="brand"><span>lumière</span><small>BEAUTY HOUSE</small></div>
+      <p>صُنع بحب لكل امرأة تحب أن تتألق.</p>
+      <div class="footer-links">
+        <a href="#">انستغرام</a><a href="#">تيك توك</a
+        ><a href="#">تواصل معنا</a>
+      </div>
+    </footer>
+    <aside class="cart-panel" id="cartPanel">
+      <div class="cart-head">
+        <div>
+          <p class="eyebrow">مشترياتك</p>
+          <h2>سلة التسوق</h2>
+        </div>
+        <button class="close-btn" id="closeCart">×</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-footer">
+        <div class="total">
+          <span>الإجمالي</span><strong id="totalPrice">0 ج.م</strong>
+        </div>
+        <button class="primary-btn checkout-btn" id="checkoutBtn">
+          إتمام الطلب <span>←</span>
+        </button>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+    <section class="orders-page" id="ordersPage">
+      <div class="order-top">
+        <button id="backToStore">← العودة للمتجر</button
+        ><a class="brand"><span>lumière</span><small>BEAUTY HOUSE</small></a>
+      </div>
+      <div class="orders-wrap">
+        <p class="eyebrow">شكراً لاختيارك لوميير</p>
+        <h1>طلباتي</h1>
+        <div id="orderContent"></div>
+      </div>
+    </section>
+    <div class="toast" id="toast">تمت إضافة المنتج إلى السلة ✦</div>
+    <script src="code.js"></script>
+        <script src="pro.js"></script>
+
+  </body>
+</html>
