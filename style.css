@@ -668,6 +668,45 @@ footer p {
 .toast.show {
   transform: none;
 }
+.admin-body {
+  min-height: 100vh;
+  background: #f8f3ee;
+  font-size: 16px;
+}
+.admin-page {
+  width: min(620px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+.admin-back,
+.text-button {
+  color: var(--ink);
+  font: 12px var(--arabic);
+}
+.admin-back { display: inline-block; margin-bottom: 20px; }
+.admin-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: clamp(24px, 6vw, 44px);
+}
+.admin-card h1 { font: 600 36px var(--serif); margin: 0 0 28px; }
+.admin-card code { direction: ltr; }
+.admin-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.text-button { border: 0; background: transparent; cursor: pointer; padding: 5px 0; }
+.admin-form { display: grid; gap: 18px; }
+.admin-form label { display: grid; gap: 8px; color: var(--ink); font-size: 12px; }
+.admin-form input,
+.admin-form select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #c8bdb5;
+  border-radius: 0;
+  background: #fff;
+  color: var(--ink);
+  font: 14px var(--arabic);
+}
+.admin-form .primary-btn { justify-content: space-between; margin-top: 8px; }
+.form-status { min-height: 20px; margin: 0; color: var(--clay); font-size: 12px; }
 @keyframes appear {
   from {
     opacity: 0;

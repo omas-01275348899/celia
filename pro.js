@@ -1,6 +1,6 @@
 
 
-const products = [
+export const defaultProducts = [
   {
     id: 1,
     name: "عطر نوار بلوم",

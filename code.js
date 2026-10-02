@@ -3,6 +3,14 @@
 
 
 
+import { defaultProducts } from "./pro.js";
+import {
+  createOrder,
+  isFirebaseConfigured,
+  subscribeToProducts,
+} from "./firebase.js";
+
+let products = [...defaultProducts];
 let cart = JSON.parse(localStorage.getItem("lumiere-cart") || "[]"),
   activeFilter = "الكل",
   expanded = false;
@@ -40,9 +48,12 @@ function renderProducts() {
   grid.innerHTML = shown
     .map(
       (p) =>
-        `<article class="product-card"><div class="product-image" style="background-image:url('${p.image}')">${p.tag ? `<span class="tag">${p.tag}</span>` : ""}<button class="add-product" onclick="addToCart(${p.id})" aria-label="إضافة ${p.name}">+</button></div><div class="product-info"><h3>${p.name}</h3><p>${money(p.price)}</p></div></article>`,
+        `<article class="product-card"><div class="product-image" style="background-image:url('${p.image}')">${p.tag ? `<span class="tag">${p.tag}</span>` : ""}<button class="add-product" data-product-id="${p.id}" aria-label="إضافة ${p.name}">+</button></div><div class="product-info"><h3>${p.name}</h3><p>${money(p.price)}</p></div></article>`,
     )
     .join("");
+  grid.querySelectorAll(".add-product").forEach((button) =>
+    button.addEventListener("click", () => addToCart(button.dataset.productId)),
+  );
   document.getElementById("showMore").style.display =
     shown.length >= all.length ? "none" : "flex";
 }
@@ -50,8 +61,8 @@ function save() {
   localStorage.setItem("lumiere-cart", JSON.stringify(cart));
 }
 function addToCart(id) {
-  const product = products.find((p) => p.id === id),
-    found = cart.find((p) => p.id === id);
+  const product = products.find((p) => String(p.id) === String(id)),
+    found = cart.find((p) => String(p.id) === String(id));
   found ? found.qty++ : cart.push({ ...product, qty: 1 });
   save();
   renderCart();
@@ -61,7 +72,7 @@ function addToCart(id) {
   setTimeout(() => t.classList.remove("show"), 2300);
 }
 function removeFromCart(id) {
-  cart = cart.filter((p) => p.id !== id);
+  cart = cart.filter((p) => String(p.id) !== String(id));
   save();
   renderCart();
 }
@@ -75,10 +86,13 @@ function renderCart() {
     ? cart
         .map(
           (p) =>
-            `<div class="cart-item"><img src="${p.image}" alt="${p.name}"><div><h4>${p.name}</h4><p>${money(p.price)} × ${p.qty}</p></div><button class="remove-item" onclick="removeFromCart(${p.id})">×</button></div>`,
+            `<div class="cart-item"><img src="${p.image}" alt="${p.name}"><div><h4>${p.name}</h4><p>${money(p.price)} × ${p.qty}</p></div><button class="remove-item" data-product-id="${p.id}" aria-label="حذف ${p.name}">×</button></div>`,
         )
         .join("")
     : '<div class="empty-cart">سلتك ما زالت فارغة<br><small>ابدئي باختيار ما تحبين</small></div>';
+  items.querySelectorAll(".remove-item").forEach((button) =>
+    button.addEventListener("click", () => removeFromCart(button.dataset.productId)),
+  );
 }
 document.querySelectorAll(".filter").forEach((btn) =>
   btn.addEventListener("click", () => {
@@ -113,7 +127,7 @@ function toggleCart(open) {
 document.getElementById("cartBtn").onclick = () => toggleCart(true);
 document.getElementById("closeCart").onclick = () => toggleCart(false);
 overlay.onclick = () => toggleCart(false);
-document.getElementById("checkoutBtn").onclick = () => {
+document.getElementById("checkoutBtn").onclick = async () => {
   if (!cart.length) {
     const t = document.getElementById("toast");
     t.textContent = "أضيفي منتجاً واحداً على الأقل أولاً";
@@ -121,7 +135,7 @@ document.getElementById("checkoutBtn").onclick = () => {
     setTimeout(() => t.classList.remove("show"), 2300);
     return;
   }
-  const order = {
+  let order = {
     id: `LM-${Math.floor(1000 + Math.random() * 9000)}`,
     date: new Intl.DateTimeFormat("ar-EG", {
       day: "numeric",
@@ -131,6 +145,18 @@ document.getElementById("checkoutBtn").onclick = () => {
     items: cart,
     total: cart.reduce((s, p) => s + p.price * p.qty, 0),
   };
+  if (isFirebaseConfigured) {
+    try {
+      order = await createOrder(order);
+    } catch (error) {
+      console.error("تعذر حفظ الطلب في Firebase.", error);
+      const t = document.getElementById("toast");
+      t.textContent = "تعذر حفظ الطلب. تحققي من اتصال Firebase ثم حاولي مجددًا.";
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 3500);
+      return;
+    }
+  }
   localStorage.setItem("lumiere-order", JSON.stringify(order));
   cart = [];
   save();
@@ -161,3 +187,16 @@ document.getElementById("searchBtn").onclick = () =>
   document.getElementById("products").scrollIntoView({ behavior: "smooth" });
 renderProducts();
 renderCart();
+
+if (isFirebaseConfigured) {
+  subscribeToProducts(
+    (firebaseProducts) => {
+      if (firebaseProducts.length) {
+        products = firebaseProducts;
+        expanded = false;
+        renderProducts();
+      }
+    },
+    () => console.warn("تعذر تحميل المنتجات من Firebase."),
+  );
+}

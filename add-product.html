@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إضافة منتج | لوميير</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="admin-body">
+    <main class="admin-page">
+      <a class="admin-back" href="index.html">← العودة للمتجر</a>
+      <section class="admin-card" id="setupMessage" hidden>
+        <p class="eyebrow">إعداد مطلوب</p>
+        <h1>اربطي متجرَك بـ Firebase أولًا</h1>
+        <p>أضيفي بيانات مشروعك في ملف <code>firebase-config.js</code> ثم أعيدي فتح هذه الصفحة.</p>
+      </section>
+      <section class="admin-card" id="loginCard" hidden>
+        <p class="eyebrow">لوحة الإدارة</p>
+        <h1>تسجيل الدخول</h1>
+        <form id="loginForm" class="admin-form">
+          <label>البريد الإلكتروني<input id="email" type="email" required autocomplete="email" /></label>
+          <label>كلمة المرور<input id="password" type="password" required autocomplete="current-password" /></label>
+          <button class="primary-btn" type="submit">دخول <span>←</span></button>
+        </form>
+      </section>
+      <section class="admin-card" id="productCard" hidden>
+        <div class="admin-heading">
+          <div><p class="eyebrow">لوحة الإدارة</p><h1>إضافة منتج</h1></div>
+          <button class="text-button" id="signOut" type="button">تسجيل الخروج</button>
+        </div>
+        <form id="productForm" class="admin-form">
+          <label>اسم المنتج<input id="name" required maxlength="100" /></label>
+          <label>السعر (ج.م)<input id="price" type="number" min="0" step="0.01" required /></label>
+          <label>القسم<select id="category" required><option value="عطور">عطور</option><option value="مكياج">مكياج</option><option value="إكسسوارات">إكسسوارات</option></select></label>
+          <label>رابط صورة المنتج<input id="image" type="url" placeholder="https://..." required /></label>
+          <label>شارة اختيارية مثل: جديد<input id="tag" maxlength="40" /></label>
+          <button class="primary-btn" type="submit">حفظ ونشر المنتج <span>←</span></button>
+          <p class="form-status" id="formStatus" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="add-product.js"></script>
+  </body>
+</html>
